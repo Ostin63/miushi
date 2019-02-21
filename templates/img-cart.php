@@ -1,0 +1,1 @@
+<img src="img/cart.png" alt="cart"><span class="basket-num">2</span>
