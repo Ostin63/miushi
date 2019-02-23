@@ -35,9 +35,9 @@ function getNameSause($con) {
  */
 function getParamMenu($con, $idCategory) {
     $sql = "
-      SELECT * FROM catalog_menu
+      SELECT * FROM catalog
       INNER JOIN categories 
-      ON catalog_menu.category_id = categories.id
+      ON catalog.category_id = categories.id
       WHERE category_id = ?";
     $stmt = db_get_prepare_stmt($con, $sql, [$idCategory]);
     mysqli_stmt_execute($stmt);
@@ -53,7 +53,7 @@ function getParamMenu($con, $idCategory) {
  * @return array
  */
 function getNewMenu($con, int $filter) {
-    $sql = "SELECT *  FROM catalog_menu WHERE  new = ?";
+    $sql = "SELECT *  FROM catalog WHERE  new = ?";
     $stmt = db_get_prepare_stmt($con, $sql, [$filter]);
     mysqli_stmt_execute($stmt);
     $res = mysqli_stmt_get_result($stmt);
@@ -67,7 +67,7 @@ function getNewMenu($con, int $filter) {
  * @return array
  */
 function getStockMenu($con, int $filter) {
-    $sql = "SELECT *  FROM catalog_menu WHERE  stock = ?";
+    $sql = "SELECT *  FROM catalog WHERE  stock = ?";
     $stmt = db_get_prepare_stmt($con, $sql, [$filter]);
     mysqli_stmt_execute($stmt);
     $res = mysqli_stmt_get_result($stmt);
@@ -76,21 +76,18 @@ function getStockMenu($con, int $filter) {
 }
 
 /**
- * Добавляет пользователя в БД
+ * Добавляет данные корзины в БД
  * @param $con mysqli Ресурс соединения
- * @param $password string Вводимый пороль пользователя
- * @param $email string Вводимый адрес пользователя
- * @param $name string  Имя пользователя
+ * @param $name string  название товара
+ * @param $price string  цена товара
  * @return boolean
  */
-function addUser($con, $email, $name, $password)
+function addProductInBasket($con, $name, $price)
 {
-    $password = password_hash($password, PASSWORD_DEFAULT);
-    $sql = 'INSERT INTO users (date_creation, email, name, password, token) VALUES (NOW(), ?, ?, ?, "")';
-    $stmt = db_get_prepare_stmt($con, $sql, [$email, $name, $password]);
+    $sql = "INSERT INTO projects ( name, $price) VALUES (?, ?)";
+    $stmt = db_get_prepare_stmt($con, $sql, [$name, $price]);
     return mysqli_stmt_execute($stmt);
 }
-
 
 /**
  * Проверяет email пользователя

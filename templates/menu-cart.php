@@ -1,6 +1,6 @@
 <li class="shadow m-2 bg-white">
     <div class="card-slider">
-        <img class="card-img-top" src="img/<?= $products['product_url'] ?>" alt="photo">
+        <img class="card-img-top" src="img/<?= $products['url'] ?>" alt="photo">
         <!--Иконки-->
         <div class="fire-icon <?= empty($products['stock']) ? "d-none" : "" ?>">
             <img src="img/stock.png" alt="stock">
@@ -20,10 +20,10 @@
     <div class="card-body text-center">
         <h5 class="card-title"><?= $products['name'] ?></h5>
         <div class="navbar m-2">
-                <span class="<?= empty($products['product_quantity']) ? "d-none" : "" ?>"><?= $products['product_quantity'] ?>
+                <span class="<?= empty($products['quantity']) ? "d-none" : "" ?>"><?= $products['quantity'] ?>
                     шт.</span><span
-                    class="<?= empty($products['product_quantity']) ? "d-none" : "" ?>">|</span><span><?= $products['product_weight'] ?>
-                г.</span>|<span><?= $products['product_calorie'] ?> Kkal</span>
+                    class="<?= empty($products['quantity']) ? "d-none" : "" ?>">|</span><span><?= $products['weight'] ?>
+                г.</span>|<span><?= $products['calorie'] ?> Kkal</span>
         </div>
         <div class="sauce_select <?= empty($products['id'] === 4) ? "d-none" : "" ?>">
             <div class="navbar js-spinner stepper-2 stepper pl-1 pr-1">
@@ -32,7 +32,7 @@
                 <span class="btn btn-sm btn-light p-0">&times;</span>
                 <p class="sauce_price font-weight-bold m-0"><span class="sauce_price-val">140</span><sup class="pl-1">руб</sup></p>
                 <div class="stepper__controls">
-                    <button class="cart-plus btn btn-sm" type="button" spinner-button="up"><span class="d-block btn-pink p-1 pt-2 pb-2">+</span></button>
+                    <button class="cart-plus btn btn-sm" type="button" spinner-button="up" id="$products['id']"><span class="d-block btn-pink p-1 pt-2 pb-2">+</span></button>
                 </div>
             </div>
 
@@ -46,7 +46,7 @@
         </div>
 
         <div class="navbar card-text pt-2">
-            <h5><?= $products['product_price'] ?><sup class="pl-1">руб</sup></h5>
+            <h5><?= $products['price'] ?><sup class="pl-1">руб</sup></h5>
 
             <div class="stepper stepper--style-3 js-spinner">
                 <input type="number" min="0" max="100" step="1" value="0" class="stepper__input">

@@ -27,6 +27,14 @@
                         <td><span>=<span>80</span> руб.</span></td>
                     </tr>
                     <tr>
+                        <td class="h5"><a href="#" class="badge badge-primary text-wrap p-2">Соус</a></td>
+                        <td class="p-0 pt-2"><button type="button" class="btn btn-outline-danger border-0">X</button></td>
+                        <td class="p-0 pt-3"><span class="badge badge-primary badge-pill">1</span></td>
+                        <td><span>шт</span><span> x</span></td>
+                        <td class="h5"><span>80</span><span> руб.</span></td>
+                        <td><span>=<span>80</span> руб.</span></td>
+                    </tr>
+                    <tr>
                         <td class="h5"><span>Итого:</span></td>
                         <td></td>
                         <td></td>

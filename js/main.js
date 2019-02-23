@@ -59,5 +59,9 @@ $('.chinese-sauce').on('change', function (evt) {
     var elementPrice = $(evt.currentTarget).parents('.sauce_select').find('.sauce_price-val ');
     elementPrice.text(dataPrice);
 });
-
+$('.button-add').on('click', function (evt) {
+    var addBasket = $(evt.currentTarget).find('.button-add').attr('data-id');
+    <?php require_once('functions.php'){getParamMenu($con, addBasket)} ?>
+    ;
+});
 

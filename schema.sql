@@ -10,19 +10,19 @@ CREATE TABLE categories (
 PRIMARY KEY (`id`)
 );
 
-CREATE TABLE catalog_menu (
+CREATE TABLE catalog (
 `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-`product_url` VARCHAR(255) NOT NULL,  //ссылка картинки
-`product_quantity` VARCHAR(64) DEFAULT NULL, //комплектность товара
-`product_weight` INT UNSIGNED NOT NULL,  //вес товара
-`product_calorie` INT UNSIGNED NOT NULL,  //колорийность
-`product_price` INT UNSIGNED NOT NULL,   //цена
-`name` VARCHAR(255) NOT NULL,  //название товара
-`stock` VARCHAR(64) DEFAULT NULL, // акции
-`hit` VARCHAR(64) DEFAULT NULL,  //хит
-`new` VARCHAR(64) DEFAULT NULL,  //новинка
-`veg` VARCHAR(64) DEFAULT NULL, //вегетарианская
-`category_id` INT UNSIGNED NOT NULL, //id категории
+`url` VARCHAR(255) NOT NULL,
+`quantity` VARCHAR(64) DEFAULT NULL,
+`weight` INT UNSIGNED NOT NULL,
+`calorie` INT UNSIGNED NOT NULL,
+`price` INT UNSIGNED NOT NULL,
+`name` VARCHAR(255) NOT NULL,
+`stock` VARCHAR(64) DEFAULT NULL,
+`hit` VARCHAR(64) DEFAULT NULL,
+`new` VARCHAR(64) DEFAULT NULL,
+`veg` VARCHAR(64) DEFAULT NULL,
+`category_id` INT UNSIGNED NOT NULL,
 PRIMARY KEY (`id`)
 );
 
@@ -34,15 +34,14 @@ PRIMARY KEY (`id`),
 UNIQUE key `name`(`name`)
 );
 
-CREATE TABLE users (
+CREATE TABLE basket (
 `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 `date_creation` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-`email` VARCHAR(255) NOT NULL,
 `name` VARCHAR(255) NOT NULL,
-`password` VARCHAR(64) NOT NULL,
+`price` VARCHAR(255) NOT NULL,
 `token`VARCHAR(64) DEFAULT NULL,
 PRIMARY KEY (`id`),
-UNIQUE KEY `email`(`email`)
+UNIQUE KEY `name`(`name`)
 );
 
 /*
