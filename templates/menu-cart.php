@@ -18,7 +18,7 @@
     </div>
 
     <div class="card-body text-center">
-        <h5 class="card-title"><?= $products['name'] ?></h5>
+        <h5 class="card-title"><?= $products['catalog_name'] ?></h5>
         <div class="navbar m-2">
                 <span class="<?= empty($products['quantity']) ? "d-none" : "" ?>"><?= $products['quantity'] ?>
                     шт.</span><span
@@ -46,7 +46,7 @@
         </div>
 
         <div class="navbar card-text pt-2">
-            <h5><?= $products['price'] ?><sup class="pl-1">руб</sup></h5>
+            <div class="h5"><?= $products['price'] ?><sup class="pl-1">руб</sup></div>
 
             <div class="stepper stepper--style-3 js-spinner">
                 <input type="number" min="0" max="100" step="1" value="0" class="stepper__input">
@@ -58,7 +58,7 @@
 
         </div>
 
-        <a class="button-add btn navbar btn-pink btn-block text-uppercase" data-id="<?= $products['id'] ?>" href="/menu.php"
+        <a class="button-add btn navbar btn-pink btn-block text-uppercase" data-id="<?= $products['category_id'] ?>" href="/menu.php"
            type="button">В корзину
             <span><img src="img/basket.png" width="23" height="21" alt="basket"></span>
         </a>

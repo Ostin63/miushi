@@ -14,42 +14,20 @@
                 <p class="h5 m-0 pt-1 pb-1">Ваша корзина сейчас пуста</p>
             </div>
         </div>
-        <div class="table-responsive">
-            <form role="form">
-                <table class="table table-hover">
-                    <tbody>
-                    <tr>
-                        <td class="h5"><a href="#" class="badge badge-primary text-wrap p-2">Кунсей батакон</a></td>
-                        <td class="p-0 pt-2"><button type="button" class="btn btn-outline-danger border-0">X</button></td>
-                        <td class="p-0 pt-3"><span class="badge badge-primary badge-pill">1</span></td>
-                        <td><span>шт</span><span> x</span></td>
-                        <td class="h5"><span>80</span><span> руб.</span></td>
-                        <td><span>=<span>80</span> руб.</span></td>
-                    </tr>
-                    <tr>
-                        <td class="h5"><a href="#" class="badge badge-primary text-wrap p-2">Соус</a></td>
-                        <td class="p-0 pt-2"><button type="button" class="btn btn-outline-danger border-0">X</button></td>
-                        <td class="p-0 pt-3"><span class="badge badge-primary badge-pill">1</span></td>
-                        <td><span>шт</span><span> x</span></td>
-                        <td class="h5"><span>80</span><span> руб.</span></td>
-                        <td><span>=<span>80</span> руб.</span></td>
-                    </tr>
-                    <tr>
-                        <td class="h5"><span>Итого:</span></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="h5"><span>=<span>80</span> руб.</span></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div class="d-flex justify-content-center mt-3 pb-3">
-                    <a class="btn btn-outline-danger mr-3" role="button" href="/">Вернуться на сайт</a>
-                    <a class="btn btn-outline-danger" role="button" href="delivery.php">Оформить заказ</a>
-                </div>
 
-            </form>
-        </div>
+        <form class="basket__form h5" method="post" action="/delivery.php">
+            <div class="basket-product row navbar" id="">
+                <input class="basket__name col-4 border-0 bg-light" type="text" value="Унаги диру">
+                <div class="col-1 text-danger">X</div>
+                <input class="basket__quantity col-1 border-0 bg-light" type="text" value="1">
+                <div class="col-1"><span>шт</span><span> x</span></div>
+                <input class="basket__price col-1 border-0 bg-light" type="text" value="80">
+                <div class="col-1">руб</div>
+            </div>
+            <div class="row justify-content-center mt-5">
+                <input class="btn btn-outline-danger" type="submit" value="Оформить заказ">
+                <a class="btn btn-outline-danger offset-1" href="menu.php">Вернуться к покупкам</a>
+            </div>
+        </form>
     </div>
 </div>

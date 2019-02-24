@@ -670,6 +670,7 @@ p {
   line-height: 0.8;
   outline: none;
 }
+
 .btn-pink {
   color: #ffffff;
   background-color: #fd4f10;
@@ -793,6 +794,7 @@ p {
   background: #fff;
   cursor: pointer;
 }
+
 @media (min-width: 992px) {
   .bg-footer {
     background-color: rgba(0, 0, 0, 0);

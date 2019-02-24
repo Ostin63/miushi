@@ -3,7 +3,7 @@ INSERT INTO users (email, name, password, token) VALUES ('sonya@mail.ru', 'Со�
 
 INSERT INTO categories (name) VALUES ('Сеты'), ('Роллы'), ('Пицца'), ('Wok');
 
-INSERT INTO catalog (url, quantity, weight, calorie, price, name, stock,
+INSERT INTO catalog (url, quantity, weight, calorie, price, catalog_name, stock,
 hit, new, veg, category_id)  VALUES
 ('miniset5.jpg', '14', '450', '400', '510', 'Минисет №5', '1', '', '', '', '1'),
 ('set6.jpg', '16', '460', '490', '400', 'Сет №6', '', '1', '', '', '1'),

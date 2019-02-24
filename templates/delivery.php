@@ -13,7 +13,6 @@
             <img class="mt-3 ml-4 d-none d-xl-block" src="img/wave-right.png" width="109" height="40" alt="wave">
         </div>
         <div class="mt-5 mb-3">
-
             <h5>Введите ваши контактные данные</h5>
         </div>
         <form class="mb-5"  action="" method="post">

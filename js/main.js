@@ -60,8 +60,6 @@ $('.chinese-sauce').on('change', function (evt) {
     elementPrice.text(dataPrice);
 });
 $('.button-add').on('click', function (evt) {
-    var addBasket = $(evt.currentTarget).find('.button-add').attr('data-id');
-    <?php require_once('functions.php'){getParamMenu($con, addBasket)} ?>
-    ;
+    $('.basket__name').css({color: 'red''})
 });
 
