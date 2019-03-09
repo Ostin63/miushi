@@ -1,4 +1,4 @@
-<section class="section-contact bg-dark mb-5 mt-5">
+<section class="section-contact bg-dark mt-5">
     <div class="container pt-5 pb-5">
         <p class="text-white pt-4">Есть вопросы?</p>
         <h2 class="text-lemon text-white">Оставьте свои контакты</h2>
