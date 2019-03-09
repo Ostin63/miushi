@@ -10,10 +10,10 @@ CREATE TABLE categories (
 PRIMARY KEY (`id`)
 );
 
-CREATE TABLE catalog (
+CREATE TABLE product (
 `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 `url` VARCHAR(255) NOT NULL,
-`quantity` VARCHAR(64) DEFAULT NULL,
+`quantity` INT UNSIGNED DEFAULT NULL,
 `weight` INT UNSIGNED NOT NULL,
 `calorie` INT UNSIGNED NOT NULL,
 `price` INT UNSIGNED NOT NULL,
@@ -28,23 +28,36 @@ PRIMARY KEY (`id`)
 
 CREATE TABLE sauce (
 `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-`price` INT UNSIGNED NOT NULL,   //цена
-`name` VARCHAR(255) NOT NULL,  //название товара
+`price` INT UNSIGNED NOT NULL,
+`name` VARCHAR(255) NOT NULL,
 PRIMARY KEY (`id`),
 UNIQUE key `name`(`name`)
 );
 
 CREATE TABLE basket (
 `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-`date_creation` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-`name` VARCHAR(255) NOT NULL,
-`price` VARCHAR(255) NOT NULL,
-`token`VARCHAR(64) DEFAULT NULL,
-PRIMARY KEY (`id`),
-UNIQUE KEY `name`(`name`)
+`product_name` VARCHAR(255) NOT NULL,
+`product_quantity` INT UNSIGNED NOT NULL,
+`product_price` INT UNSIGNED NOT NULL,
+`sauce_name` VARCHAR(255) NOT NULL,
+`sauce_price` INT UNSIGNED NOT NULL,
+`sauce_quantity` INT UNSIGNED NOT NULL,
+PRIMARY KEY (`id`)
 );
 
-/*
-//создание индекса для поля
-CREATE FULLTEXT INDEX task_search ON tasks(name)
-*/
+CREATE TABLE basketorder (
+`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+`date_creation` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+`product_name` VARCHAR(255) NOT NULL,
+`product_quantity` INT UNSIGNED NOT NULL,
+`product_price` INT UNSIGNED NOT NULL,
+`sauce_name` VARCHAR(255) NOT NULL,
+`sauce_price` INT UNSIGNED NOT NULL,
+`sauce_quantity` INT UNSIGNED NOT NULL,
+`price` INT UNSIGNED NOT NULL,
+`client_name` VARCHAR(255) DEFAULT NULL,
+`client_phone` VARCHAR(255) NOT NULL,
+`client_address` VARCHAR(255) NOT NULL,
+`type_of_delivery` VARCHAR(255) NOT NULL,
+PRIMARY KEY (`id`)
+);

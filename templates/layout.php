@@ -259,11 +259,13 @@
 
 
 <script src="js/jQuery.js"></script>
+<script src="js/jquery-json.js"></script>
 <script src="js/ajax-popper-1.14.3.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/owl.carousel.js"></script>
 <script src="js/stepper.min.js"></script>
 <script src="js/main.js"></script>
+<script src="<?= $src_menu ?>"></script>
 </body>
 
 </html>

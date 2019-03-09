@@ -7,7 +7,7 @@ require_once('mysql_helper.php');
  * @param  $name Название карегории
  * @return array
  */
-function getNameCatagory($con) {
+function getNameCategory($con) {
     $sql = "SELECT `id`, `name` FROM categories";
     $res = mysqli_query($con, $sql);
     $nameCatagory= mysqli_fetch_all($res, MYSQLI_ASSOC);
@@ -17,7 +17,6 @@ function getNameCatagory($con) {
 /**
  * Получает списк соусов
  * @param $con mysqli Ресурс соединения
- *
  * @return array
  */
 function getNameSause($con) {
@@ -34,11 +33,7 @@ function getNameSause($con) {
  * @return array
  */
 function getParamMenu($con, $idCategory) {
-    $sql = "
-      SELECT * FROM catalog
-      INNER JOIN categories 
-      ON catalog.category_id = categories.id
-      WHERE category_id = ?";
+    $sql = "SELECT * FROM product WHERE category_id = ?";
     $stmt = db_get_prepare_stmt($con, $sql, [$idCategory]);
     mysqli_stmt_execute($stmt);
     $res = mysqli_stmt_get_result($stmt);
@@ -53,7 +48,7 @@ function getParamMenu($con, $idCategory) {
  * @return array
  */
 function getNewMenu($con, int $filter) {
-    $sql = "SELECT *  FROM catalog WHERE  new = ?";
+    $sql = "SELECT *  FROM product WHERE  new = ?";
     $stmt = db_get_prepare_stmt($con, $sql, [$filter]);
     mysqli_stmt_execute($stmt);
     $res = mysqli_stmt_get_result($stmt);
@@ -67,7 +62,7 @@ function getNewMenu($con, int $filter) {
  * @return array
  */
 function getStockMenu($con, int $filter) {
-    $sql = "SELECT *  FROM catalog WHERE  stock = ?";
+    $sql = "SELECT *  FROM product WHERE  stock = ?";
     $stmt = db_get_prepare_stmt($con, $sql, [$filter]);
     mysqli_stmt_execute($stmt);
     $res = mysqli_stmt_get_result($stmt);
@@ -78,369 +73,119 @@ function getStockMenu($con, int $filter) {
 /**
  * Добавляет данные корзины в БД
  * @param $con mysqli Ресурс соединения
- * @param $name string  название товара
- * @param $price string  цена товара
+ * @param $product_id int  id продукта
+ * @param $product_quantity int количество продукта
+ * @param $sauce_id id int  id соуса
+ * @param $sauce_quantity  int количество соусов
  * @return boolean
  */
-function addProductInBasket($con, $name, $price)
+function addProductInBasket($con, $product_name, $product_quantity, $product_price, $sauce_name, $sauce_price, $sauce_quantity)
 {
-    $sql = "INSERT INTO projects ( name, $price) VALUES (?, ?)";
-    $stmt = db_get_prepare_stmt($con, $sql, [$name, $price]);
+    $sql = "
+        INSERT INTO basket (product_name, product_quantity, product_price, sauce_name, sauce_price, sauce_quantity) 
+        VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = db_get_prepare_stmt($con, $sql, [$product_name, $product_quantity, $product_price, $sauce_name, $sauce_price, $sauce_quantity]);
     return mysqli_stmt_execute($stmt);
 }
-
 /**
- * Проверяет email пользователя
- * @param $con mysqli Ресурс соединения
- * @param $email string Адрес пользователя
- * @return boolean
- *//*
-function getUserDataByEmail($con, $email)
-{
-    $sql = "SELECT * FROM users WHERE email = ?";
-    $stmt  = db_get_prepare_stmt($con, $sql, [$email]);
-    mysqli_stmt_execute($stmt);
-    $res = mysqli_stmt_get_result($stmt);
-    $mail = mysqli_fetch_all($res, MYSQLI_ASSOC);
-    return $mail;
-}*/
-
-/**
- * Проверяет email пользователя
- * @param $con mysqli Ресурс соединения
- * @param $email string Адрес пользователя
- * @return boolean
- */
-function getUserDataByEmail($con, $email)
-{
-    $email = mysqli_real_escape_string($con, $email);
-    $sql = "SELECT * FROM users WHERE email = '$email'";
-    return mysqli_query($con, $sql);
-}
-
-
-
-
-/**
- * Получает проекты для одного автора
- * @param $con mysqli Ресурс соединения
- * @param $userId int Идентификатор автора
- * @return array
- */
-function getProjects($con, int $userId)
-{
-    $sql = "SELECT * FROM projects WHERE author_id = ?";
-    $stmt = db_get_prepare_stmt($con, $sql, [$userId]);
-    mysqli_stmt_execute($stmt);
-    $res = mysqli_stmt_get_result($stmt);
-    $projects = mysqli_fetch_all($res, MYSQLI_ASSOC);
-    return $projects;
-}
-
-/**
- * Получет имена категорий для одного автора
- * @param $con mysqli Ресурс соединения
- * @param $userId int Идентификатор автора
- * @return array
- */
-function getTasksForAuthorId($con, int $userId)
-{
-    $sql = "
-      SELECT DISTINCT tasks.*,
-      projects.name AS project_name
-      FROM tasks
-      INNER JOIN projects ON tasks.project_id = projects.id
-      WHERE projects.author_id = ?";
-    $stmt = db_get_prepare_stmt($con, $sql, [$userId]);
-    mysqli_stmt_execute($stmt);
-    $res = mysqli_stmt_get_result($stmt);
-    $tasksList = mysqli_fetch_all($res, MYSQLI_ASSOC);
-    return $tasksList;
-}
-
-/**
- * Получает все  задачи для одного автора
- * @param $con mysqli Ресурс соединения
- * @param $userId int Идентификатор автора
- * @return array
- */
-function getTasksForAuthorIdAllProjected($con, int $userId)
-{
-    $sql = "
-            SELECT DISTINCT tasks.*, projects.name AS project_name
-            FROM tasks
-            INNER JOIN projects ON tasks.project_id = projects.id
-            WHERE projects.author_id = ?";
-    $stmt = db_get_prepare_stmt($con, $sql, [$userId]);
-    mysqli_stmt_execute($stmt);
-    $res = mysqli_stmt_get_result($stmt);
-    $tasksList = mysqli_fetch_all($res, MYSQLI_ASSOC);
-    return $tasksList;
-}
-
-/**
- * Получает задачи на сегодня для одного автора
- * @param $con mysqli Ресурс соединения
- * @param $userId int Идентификатор автора
- * @return array
- */
-function getTasksForAuthorIdAndProjectedAgenda($con, int $userId)
-{
-    $sql = "
-            SELECT DISTINCT tasks. * , projects.name AS project_name
-            FROM tasks
-            INNER JOIN projects ON tasks.project_id = projects.id
-            WHERE projects.author_id = ?
-              AND DATE(tasks.date_completion) = CURDATE()";
-    $stmt = db_get_prepare_stmt($con, $sql, [$userId]);
-    mysqli_stmt_execute($stmt);
-    $res = mysqli_stmt_get_result($stmt);
-    $tasksList = mysqli_fetch_all($res, MYSQLI_ASSOC);
-    return $tasksList;
-}
-
-/**
- * Получает задачи на завтра для одного автора
- * @param $con mysqli Ресурс соединения
- * @param $userId int Идентификатор автора
- * @return array
- */
-function getTasksForAuthorIdAndProjectedTomorrow($con, int $userId)
-{
-    $sql = "
-            SELECT DISTINCT tasks. * , projects.name AS project_name
-            FROM tasks
-            INNER JOIN projects ON tasks.project_id = projects.id
-            WHERE projects.author_id = ?
-              AND DATE(tasks.date_completion) = DATE_ADD(CURDATE(), INTERVAL 1 DAY)";
-    $stmt = db_get_prepare_stmt($con, $sql, [$userId]);
-    mysqli_stmt_execute($stmt);
-    $res = mysqli_stmt_get_result($stmt);
-    $tasksList = mysqli_fetch_all($res, MYSQLI_ASSOC);
-    return $tasksList;
-}
-
-/**
- * Получает просроченные задачи для одного автора
- * @param $con mysqli Ресурс соединения
- * @param $userId int Идентификатор автора
- * @return array
- */
-function getTasksForAuthorIdAndProjectedExpired($con, int $userId)
-{
-    $sql = "
-            SELECT DISTINCT tasks. * , projects.name AS project_name
-            FROM tasks
-            INNER JOIN projects ON tasks.project_id = projects.id
-            WHERE projects.author_id = ?
-              AND tasks.date_completion < NOW()";
-    $stmt = db_get_prepare_stmt($con, $sql, [$userId]);
-    mysqli_stmt_execute($stmt);
-    $res = mysqli_stmt_get_result($stmt);
-    $tasksList = mysqli_fetch_all($res, MYSQLI_ASSOC);
-    return $tasksList;
-}
-
-/**
- * Получает задачи проекта для одного автора
- * @param $con mysqli Ресурс соединения
- * @param $userId int Идентификатор автора
- * @param $projectId int Идентификатор проекта
- * @return array
- */
-function getTasksForAuthorIdAndProjected($con, int $userId, int $projectId)
-{
-    $sql = "
-            SELECT DISTINCT tasks.*, projects.name AS project_name
-            FROM tasks
-            INNER JOIN projects ON tasks.project_id = projects.id
-            WHERE projects.author_id = ? AND tasks.project_id = ?";
-    $stmt = db_get_prepare_stmt($con, $sql, [$userId, $projectId]);
-    mysqli_stmt_execute($stmt);
-    $res = mysqli_stmt_get_result($stmt);
-    $tasksList = mysqli_fetch_all($res, MYSQLI_ASSOC);
-    return $tasksList;
-}
-
-/**
- * Проверяет наличие задач для одного автора
- * @param $con mysqli Ресурс соединения
- * @param $search string Вводимые данные в поле поиска
- * @param $userId int Идентификатор автора
- * @return array
- */
-function searchTaskAuthor($con, $search, int $userId)
-{
-    $sql = "SELECT tasks.*, projects.name AS project_name FROM tasks
-            JOIN projects ON projects.id = tasks.project_id
-		    WHERE MATCH(tasks.name) AGAINST(?) AND projects.author_id = ?";
-    $stmt = db_get_prepare_stmt($con, $sql, [$search, $userId]);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    return mysqli_fetch_all($result, MYSQLI_ASSOC);
-}
-
-/**
- * Получает задачи по фильтрации для одного автора
- * @param $con mysqli Ресурс соединения
- * @param $userId int Идентификатор автора
- * @param $projectId int Идентификатор проекта
- * @param $search string Вводимые данные в поле поиска
- * @param $filter string Выбирает задачи: по параметрам даты
- * @return array
- */
-function getTasksForAuthorIdAndProjectedFilter($con, int $userId, int $projectId = null, $filter = null, $search = null)
-{
-    if (!empty($projectId)) {
-        return getTasksForAuthorIdAndProjected($con, (int)$userId, (int)$projectId);
-    } else {
-        if (!empty($search)) {
-            return searchTaskAuthor($con, $search, (int)$userId);
-        } else {
-            switch ($filter) {
-                case 'agenda' :
-                    return getTasksForAuthorIdAndProjectedAgenda($con, (int)$userId);
-                case 'tomorrow' :
-                    return getTasksForAuthorIdAndProjectedTomorrow($con, (int)$userId);
-                case 'expired' :
-                    return getTasksForAuthorIdAndProjectedExpired($con, (int)$userId);
-                default :
-                    return getTasksForAuthorIdAllProjected($con, (int)$userId);
-            }
-        }
-    }
-}
-
-/**
- * Подсчитывает колличество задач по категориям для одного автора
- * @param $tasksList array список задач по категориям для одного автора
- * @param $projectId int Идентификатор проекта
- * @return int
- */
-function countTasks(array $tasksList, int $projectId)
-{
-    $tasksAmount = 0;
-    foreach ($tasksList as $task) {
-        if ($task['project_id'] === $projectId) {
-            $tasksAmount++;
-        }
-    }
-    return $tasksAmount;
-}
-
-/**
- * Подсчитывает остатк времени до выполнения задачи
- * @param $taskDate string дата выполнения задачи
- * @param $importantHours int остаток времени до дата выполнения задачи
- * @return int
- */
-function isTaskImportant($taskDate, int $importantHours)
-{
-    if (empty($taskDate)) {
-        return false;
-    }
-    $seconds_in_hour = 3600;
-    $ts = time();
-    $end_ts = strtotime($taskDate);
-    $ts_diff = $end_ts - $ts;
-    return floor($ts_diff / $seconds_in_hour) <= $importantHours;
-}
-
-/**
- * Определяет существоване id пользователя
- * @param $id int Идентификатор пользователя
- * @param $entityList array введенние данные
- * @return boolean
- */
-function idExists(int $id, array $entityList)
-{
-    foreach ($entityList as $entityInfo) {
-        if ($id === $entityInfo['id']) {
-            return true;
-        }
-    }
-    return false;
-}
-
-/**
- * Добавляет задачи в БД
- * @param $con mysqli Ресурс соединения
- * @param $name string название проекта
- * @param $dateCompletion string Дата выполнения задачи
- * @param $file string Файл добавляемый пользователем
- * @param $projectId int Идентификатор проекта
- * @return boolean
- */
-function addTaskform($con, $name, $dateCompletion, $file, int $projectId)
-{
-    $sql = "
-    INSERT INTO tasks (name, date_creation, date_completion, file, project_id) VALUES
-        (?, NOW(), ?, ?, ?)";
-    $stmt = db_get_prepare_stmt($con, $sql, [$name, $dateCompletion, $file, $projectId]);
-    return mysqli_stmt_execute($stmt);
-}
-
-/**
- * Добавляет проекты в БД
- * @param $con mysqli Ресурс соединения
- * @param $name string название проекта
- * @param $authorId int Идентификатор пользователя
- * @return boolean
- */
-function addProjectForm($con, $name, int $authorId)
-{
-    $sql = "INSERT INTO projects ( name, author_id) VALUES (?, ?)";
-    $stmt = db_get_prepare_stmt($con, $sql, [$name, $authorId]);
-    return mysqli_stmt_execute($stmt);
-}
-
-/**
- * Проверяет формат даты
- * @param $date string исходное написпние даты
- * @param $format string желаемый вид даты
- * @return string
- */
-function validateDate($date, $format = 'Y-m-d')
-{
-    $d = DateTime::createFromFormat($format, $date);
-    return $d && $d->format($format) === $date;
-}
-
-/**
- * Изменяет статус задачи
- * @param $con mysqli Ресурс соединения
- * @param $taskId int идентификатор задач
- * @param $check int новый статус задачи
- * @param $authorId int идентификатор пользователя
- * @return boolean
- */
-function changeTaskCompletion($con, int $taskId, int $check, int $authorId)
-{
-    $sql = "UPDATE tasks INNER JOIN projects ON projects.id = tasks.project_id
-            SET tasks.done = ? WHERE tasks.id = ? AND projects.author_id = ?";
-    $stmt = db_get_prepare_stmt($con, $sql, [$check, $taskId, $authorId]);
-    return mysqli_stmt_execute($stmt);
-}
-
-/**
- * Возвращает задачи которые длжны быть выполнены в ближайший час
+ * Получает данные товара из корзины
  * @param $con mysqli Ресурс соединения
  * @return array
  */
-function getHotTasks($con)
-{
-    $sql = "
-            SELECT DISTINCT
-              tasks.date_completion,
-              tasks.name,
-              users.email AS user_email,
-              users.name AS user_name
-            FROM tasks
-            INNER JOIN projects ON tasks.project_id = projects.id
-            INNER JOIN users ON projects.author_id = users.id
-            WHERE tasks.date_completion BETWEEN NOW() AND DATE_ADD(now(), INTERVAL 1 HOUR)";
+function getParamBasket($con) {
+    $sql = "SELECT * FROM basket";
     $res = mysqli_query($con, $sql);
+    $basket_product = mysqli_fetch_all($res, MYSQLI_ASSOC);
+    return $basket_product;
+}
+
+/**
+ * Удаляет товар из корзины по id товара
+ * @param $con mysqli Ресурс соединения
+ * @param $idBasket int id товара
+ * @return boolean
+ */
+function deleteProductById ($con, int $idBasket)
+{
+    $sql = "DELETE FROM basket WHERE id = ?";
+    $stmt  = db_get_prepare_stmt($con, $sql, [$idBasket]);
+    mysqli_stmt_execute($stmt);
+    $res = mysqli_stmt_get_result($stmt);
     return mysqli_fetch_all($res, MYSQLI_ASSOC);
 }
 
+/**
+ * вычисляет итоговую цену заказа
+ * @param $basket_product ассоативный массив карзины
+ * @param $final_price итоговая цена заказа
+ * @return int
+ */
+function finalPrice($basket_product) {
+    $final_price = 0;
+    foreach ($basket_product as $product){
 
+        $price = intval($product['product_quantity']) * intval($product['product_price'])
+            + intval($product['sauce_quantity']) * intval($product['sauce_price']);
+
+
+        $final_price += $price;
+    }
+    return $final_price;
+}
+
+/**
+ * Добавляет данные корзины заказа в БД
+ * @param $con mysqli Ресурс соединения
+ * @param $product_id int  id продукта
+ * @param $product_quantity int количество продукта
+ * @param $sauce_id id int  id соуса
+ * @param $sauce_quantity  int количество соусов
+ * @param $client_name Имя заказчика
+ * @param $client_phone телефон заказчика
+ * @param $client_address адрес заказчика
+ * @param $type_of_delivery  вид доставки
+ * @return boolean
+ */
+function addOrder($con, $product_name, $product_quantity, $product_price, $sauce_name, $sauce_price, $sauce_quantity,
+    $price, $client_name, $client_phone, $client_address, $type_of_delivery)
+{
+    $sql = "
+        INSERT INTO basketorder (date_creation, product_name, product_quantity, product_price, sauce_name, sauce_price, sauce_quantity, 
+        price, client_name, client_phone, client_address, type_of_delivery) 
+        VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = db_get_prepare_stmt($con, $sql, [$product_name, $product_quantity, $product_price, $sauce_name, $sauce_price, $sauce_quantity,
+        $price, $client_name, $client_phone, $client_address, $type_of_delivery]);
+    return mysqli_stmt_execute($stmt);
+}
+
+/**
+ * Получает данные заказа из БД
+ * @param $con mysqli Ресурс соединения
+ * @return array
+ */
+function checkOrder($con) {
+    $sql = "SELECT * FROM basketorder";
+    $res = mysqli_query($con, $sql);
+    $basket_order = mysqli_fetch_all($res, MYSQLI_ASSOC);
+    return $basket_order;
+}
+
+/**
+ * Очищаает корзину
+ * @param $con mysqli Ресурс соединения
+ * @return boolean
+ */
+function deleteBasket($con) {
+    $sql = "TRUNCATE TABLE  basket";
+    mysqli_query($con, $sql);
+}
+
+/**
+ * Очищаает Admin таблицу
+ * @param $con mysqli Ресурс соединения
+ * @return boolean
+ */
+function deleteBasketOrder($con) {
+    $sql = "TRUNCATE TABLE  basketorder";
+    mysqli_query($con, $sql);
+}

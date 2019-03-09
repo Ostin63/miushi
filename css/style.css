@@ -450,11 +450,7 @@ body {
 .carousel-indicators .active {
   background-color: #1fba0a;
 }
-/*
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  opacity: 0;
-}*/
+
 a {
   display: block;
   text-decoration: none;
@@ -470,7 +466,6 @@ p {
   top: -5px;
   right: 7px;
   padding-left: 3px;
-  padding-right: 3px;
   font-size: 8px;
   line-height: 1;
   color: #fff;

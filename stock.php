@@ -6,10 +6,14 @@ session_start();
 
 // заголовок
 $page_name = 'Miushi';
+$src_menu = 'js/menu.js';
 
 // подключаем контент
+$goods = count(getParamBasket($con));
 $btn_menu  = include_template('btn-menu.php');
-$img_cart  = include_template('img-cart.php');
+$img_cart  = include_template('img-cart.php', [
+    'goods' => $goods
+]);
 $back_call  = include_template('back-call.php');
 $phone  = include_template('phone.php');
 $post  = include_template('post.php');
@@ -38,7 +42,7 @@ $menu_products = getStockMenu($con, (int)'1');
 $sauces = getNameSause($con);
 foreach ($menu_products as $menu_product) {
     $menu_cart = include_template('menu-cart.php', [
-        'products' => $menu_product,
+        'product' => $menu_product,
         'sauces' => $sauces
     ]);
     $menu_carts[] = $menu_cart;
@@ -52,6 +56,7 @@ $stock_new = include_template('stock-new.php', [
 // формируем главную страницу
 $layout_content = include_template('layout.php', [
     'page_name' => $page_name,
+    'src_menu' => $src_menu,
     'flags' => $flags,
     'post' => $post,
     'phone' => $phone,

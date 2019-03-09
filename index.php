@@ -8,7 +8,7 @@ session_start();
 $page_name = 'Miushi';
 
 // подключаем контент
-
+$goods = count(getParamBasket($con));
 $btn_menu  = include_template('btn-menu.php');
 $img_cart  = include_template('img-cart.php');
 $back_call  = include_template('back-call.php');

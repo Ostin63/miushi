@@ -1,0 +1,13 @@
+<?php
+require_once('../connect.php');
+require_once('../functions.php');
+
+$postData = file_get_contents('php://input');
+$data = json_decode($postData, true);
+
+var_dump($data);
+
+if (isset($data['productName'])){
+    addProductInBasket($con, $data['productName'], $data['productQuantity'], $data['productPrice'], $data['sauceName'],
+        $data['saucePrice'], $data['sauceQuantity']);
+}
