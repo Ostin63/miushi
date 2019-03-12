@@ -10,7 +10,9 @@ $page_name = 'Miushi';
 // подключаем контент
 $goods = count(getParamBasket($con));
 $btn_menu  = include_template('btn-menu.php');
-$img_cart  = include_template('img-cart.php');
+$img_cart  = include_template('img-cart.php', [
+    'goods' => $goods
+]);
 $back_call  = include_template('back-call.php');
 $phone  = include_template('phone.php');
 $post  = include_template('post.php');

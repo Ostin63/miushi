@@ -1,4 +1,2 @@
 <img src="img/cart.png" alt="cart">
-<?php if (isset($goods)): ?>
-    <span class="basket-num"><?= $goods?></span>
-<?php endif; ?>
+<span class="basket-num <?= empty($goods) ? "d-none" : "" ?>" id="min-num"><?= $goods?></span>

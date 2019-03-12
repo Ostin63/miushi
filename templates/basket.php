@@ -24,17 +24,17 @@
                         <div class="row navbar">
 
                             <input class="basket__name col-4 border-0 bg-light" type="text" name="form_deliv[product_name]" value="<?= htmlspecialchars($product['product_name'])?>">
-                            <div class="col-1 text-danger">x</div>
+                            <div class="col-1 text-danger d-none d-lg-block">x</div>
                             <input class="basket__quantity col-1 border-0 bg-light" type="text" name="form_deliv[product_quantity]" value="<?= htmlspecialchars($product['product_quantity'])?>">
-                            <div class="col-1"><span>шт</span><span class="pl-3 text-danger">x</span></div>
+                            <div class="col-1 d-none d-lg-block"><span>шт</span><span class="pl-3 text-danger">x</span></div>
                             <input class="basket__price col-1 border-0 bg-light pl-0 pr-0" type="text" name="form_deliv[product_price]" value="<?= htmlspecialchars($product['product_price'])?>">
                             <div class="col-1">руб.</div>
                         </div>
                         <div class="row navbar mt-1 pb-3 border-bottom">
                             <input class="sauce__name col-4 border-0 bg-light text-primary" type="text" name="form_deliv[sauce_name]" value="<?= htmlspecialchars($product['sauce_name'])?>">
-                            <div class="col-1 text-danger">X</div>
+                            <div class="col-1 text-danger d-none d-lg-block">X</div>
                             <input class="sauce__quantity col-1 border-0 bg-light" type="text" name="form_deliv[sauce_quantity]" value="<?= htmlspecialchars($product['sauce_quantity'])?>">
-                            <div class="col-1"><span>шт</span><span class="pl-3 text-danger">x</span></div>
+                            <div class="col-1 d-none d-lg-block"><span>шт</span><span class="pl-3 text-danger">x</span></div>
                             <input class="sauce__price col-1 border-0 bg-light pl-0 pr-0" type="text" name="form_deliv[sauce_price]" value="<?= htmlspecialchars($product['sauce_price'])?>">
                             <div class="col-1">руб.</div>
                         </div>
@@ -53,17 +53,15 @@
                     <div class="col-1 pr-4">руб.</div>
                 </div>
             <?php endif; ?>
-            <div class="row justify-content-center mt-5">
-                <a class="btn btn-outline-danger offset-1 <?= isset($goods) ? "d-none" : "" ?>" href="menu.php">Вернуться к покупкам</a>
-            </div>
+
             <div class="pb-3 <?= empty($goods) ? "d-none" : "" ?>">
                 <div class="form-row">
-                    <div class="col">
+                    <div class="col-md-12 col-lg-6">
                         <label for="name">Ваше имя</label>
 
                         <input type="text" class="form-control" id="name" placeholder="Имя" name="form_deliv[name]" value="<?= htmlspecialchars($form['name']) ?>">
                     </div>
-                    <div class="col">
+                    <div class="col-md-12 col-lg-6">
                         <label for="phone">Ваш телефон (обязательно)</label>
 
                         <input type="phone" class="form-control <?=isset($errors['phone']) ? "is-invalid" : "" ?>" id="phone" placeholder="+7 900 000 00 00" name="form_deliv[phone]" value="<?= htmlspecialchars($form['phone'])?>">
@@ -74,7 +72,7 @@
                 </div>
 
                 <div class="form-row mt-3">
-                    <div class="col">
+                    <div class="col-md-12 col-lg-6">
                         <label for="address">Ваш адрес (обязательно)</label>
 
                         <input type="text" class="form-control <?= isset($errors['address']) ? "is-invalid" : "" ?>"
@@ -84,7 +82,7 @@
                             <?= $errors['address'] ?>
                         </p>
                     </div>
-                    <div class="col">
+                    <div class="col-md-12 col-lg-6">
                         <label for="option">Вид доставки</label>
 
                         <select class="form-control" id="option" name="form_deliv[option]">
@@ -94,7 +92,7 @@
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                    <input class="btn btn-outline-danger mt-3" type="submit" name="" value="Оформить заказ">
+                    <input class="btn btn-outline-danger mt-3" type="submit" value="Оформить заказ">
                 </div>
 
             </div>

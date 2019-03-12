@@ -17,7 +17,7 @@
 <body>
 <header class="main-header container">
     <nav class="main-header__nav">
-        <ul class="navbar row justify-content-between pl-sm-2 pr-sm-2">
+        <ul class="nav navbar row justify-content-between">
             <li class="nav-item align-items-center d-block d-xl-none">
                 <button class="btn btn-link mr-5" data-toggle="modal" data-target="#exampleModal">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20px"
