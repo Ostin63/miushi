@@ -59,4 +59,5 @@ $(function () {
         var elementPrice = $(evt.currentTarget).parents('.sauce_select').find('.sauce_price-val ');
         elementPrice.text(dataPrice);
     });
+
 });

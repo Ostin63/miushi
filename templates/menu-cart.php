@@ -51,8 +51,8 @@
             <div class="stepper stepper--style-3 js-spinner">
                 <input class="stepper_quantity stepper__input" type="number" min="0" max="100" step="1" value="1">
                 <div class="stepper__controls">
-                    <button class="btn-subtract" type="button" spinner-button="down"><span>-</span></button>
-                    <button class="btn-add" type="button" spinner-button="up"><span>+</span></button>
+                    <button class="btn-subtract" type="button" spinner-button="down"><span class="span">-</span></button>
+                    <button class="btn-add" type="button" spinner-button="up"><span class="span">+</span></button>
                 </div>
             </div>
 

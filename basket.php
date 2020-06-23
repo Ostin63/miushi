@@ -6,6 +6,7 @@ session_start();
 
 // заголовок
 $page_name = 'Miushi';
+//скрипты
 $src_menu = 'js/basket.js';
 
 // подключаем контент
@@ -56,16 +57,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors[$val] = "Это поле обязательно";
         }
     }
-
     if (empty($errors)) {
         foreach ($basket_product as $key){
             addOrder($con, $key['product_name'], $key['product_quantity'], $key['product_price'],
                 $key['sauce_name'], $key['sauce_price'], $key['sauce_quantity'], $form['price'],
                 $form['name'], $form['phone'], $form['address'], $form['option']);
         }
-
-
-
         $res = checkOrder($con);
         if ($res > 0) {
             deleteBasket($con);

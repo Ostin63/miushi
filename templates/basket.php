@@ -22,19 +22,18 @@
                 <?php foreach ($basket as $product): ?>
                     <div class="basket-id ">
                         <div class="row navbar">
-
                             <input class="basket__name col-4 border-0 bg-light" type="text" name="form_deliv[product_name]" value="<?= htmlspecialchars($product['product_name'])?>">
-                            <div class="col-1 text-danger d-none d-lg-block">x</div>
+                            <div class="col-1 text-danger d-none d-lg-block">&times</div>
                             <input class="basket__quantity col-1 border-0 bg-light" type="text" name="form_deliv[product_quantity]" value="<?= htmlspecialchars($product['product_quantity'])?>">
-                            <div class="col-1 d-none d-lg-block"><span>шт</span><span class="pl-3 text-danger">x</span></div>
+                            <div class="col-1 d-none d-lg-block"><span>шт</span><span class="pl-3 text-danger">&times</span></div>
                             <input class="basket__price col-1 border-0 bg-light pl-0 pr-0" type="text" name="form_deliv[product_price]" value="<?= htmlspecialchars($product['product_price'])?>">
                             <div class="col-1">руб.</div>
                         </div>
                         <div class="row navbar mt-1 pb-3 border-bottom">
                             <input class="sauce__name col-4 border-0 bg-light text-primary" type="text" name="form_deliv[sauce_name]" value="<?= htmlspecialchars($product['sauce_name'])?>">
-                            <div class="col-1 text-danger d-none d-lg-block">X</div>
+                            <div class="col-1 text-danger d-none d-lg-block">&times</div>
                             <input class="sauce__quantity col-1 border-0 bg-light" type="text" name="form_deliv[sauce_quantity]" value="<?= htmlspecialchars($product['sauce_quantity'])?>">
-                            <div class="col-1 d-none d-lg-block"><span>шт</span><span class="pl-3 text-danger">x</span></div>
+                            <div class="col-1 d-none d-lg-block"><span>шт</span><span class="pl-3 text-danger">&times</span></div>
                             <input class="sauce__price col-1 border-0 bg-light pl-0 pr-0" type="text" name="form_deliv[sauce_price]" value="<?= htmlspecialchars($product['sauce_price'])?>">
                             <div class="col-1">руб.</div>
                         </div>

@@ -9,7 +9,7 @@
             <img class="mt-3 ml-4 d-none d-lg-block d-xl-none" src="img/wave-right750.png" width="101" height="37" alt="wave">
             <img class="mt-3 ml-4 d-none d-xl-block" src="img/wave-right.png" width="109" height="40" alt="wave">
         </div>
-        <div class="row justify-content-around pt-5">
+        <div class="row justify-content-around pt-5 pb-5">
             <div class="mb-3">
                 <img src="img/Miushu-logo.png" alt="logo">
             </div>
